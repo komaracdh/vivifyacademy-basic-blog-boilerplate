@@ -34,9 +34,9 @@
 <?php include "sidebar.php" ?>
 
 
-    </div><!-- /.row -->
+    </div>
 
-</main><!-- /.container -->
+</main>
 
 <footer class="blog-footer">
     <?php include "footer.php" ?>

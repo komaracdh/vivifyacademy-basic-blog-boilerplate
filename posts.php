@@ -1,67 +1,99 @@
-<div class="col-sm-8 blog-main">
+<?php
+  $servername = "127.0.0.1";
+  $username = "root";
+  $password = "vivify";
+  $dbname = "blog";
 
-<div class="blog-post">
-    <h2 class="blog-post-title"><a href="#">Sample blog post</a></h2>
-    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+  try {
+      $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }
+  catch(PDOException $e)
+  {
+      echo $e->getMessage();
+  }
+?>
 
-    <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-    <hr>
-    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-    <blockquote>
-        <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-    </blockquote>
-    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-    <h2><a href="#">Heading</a></h2>
-    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <h3><a href="#">Sub-heading</a></h3>
-    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-    <pre><code>Example code block</code></pre>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-    <h3><a href="#">Sub-heading</a></h3>
-    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    <ul>
-        <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-        <li>Donec id elit non mi porta gravida at eget metus.</li>
-        <li>Nulla vitae elit libero, a pharetra augue.</li>
-    </ul>
-    <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-    <ol>
-        <li>Vestibulum id ligula porta felis euismod semper.</li>
-        <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-        <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-    </ol>
-    <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-</div><!-- /.blog-post -->
+<!doctype html>
+<html lang="en">
+<head>
 
-<div class="blog-post">
-    <h2 class="blog-post-title"><a href="#">Another blog post</a></h2>
-    <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
 
-    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-    <blockquote>
-        <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-    </blockquote>
-    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-</div><!-- /.blog-post -->
+  <title>Vivify Blog</title>
 
-<div class="blog-post">
-    <h2 class="blog-post-title"><a href="#"> New feature</a></h2>
-    <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    <ul>
-        <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-        <li>Donec id elit non mi porta gravida at eget metus.</li>
-        <li>Nulla vitae elit libero, a pharetra augue.</li>
-    </ul>
-    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-    <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-</div><!-- /.blog-post -->
+  <!-- Custom styles for this template -->
+  <link href="styles/blog.css" rel="stylesheet">
+  <link href="styles/styles.css" rel="stylesheet">
+</head>
+<?php include 'header.php'?>
+<body>
+<main role="main" class="container">
 
-<nav class="blog-pagination">
-    <a class="btn btn-outline-primary" href="#">Older</a>
-    <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-</nav>
+  <div class="row">
+  <?php
+              if (isset($_GET['post_id'])) {
 
-</div><!-- /.blog-main -->
+                  $sql = "SELECT Id, Title, Body, Author, Created_at FROM posts WHERE posts.id = {$_GET['post_id']}";
+                  $statement = $connection->prepare($sql);
+
+                  $statement->execute();
+
+                  $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+                  $singlePost = $statement->fetch();
+              }
+
+
+
+  ?>
+  <div class="blog-post">
+      <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo($singlePost['id']) ?>"><?php echo($singlePost['title']) ?></a></h2>
+      <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> by <?php echo($singlePost['author']) ?></p>
+      <p><?php echo($singlePost['body']) ?></p>
+      <div class="comments">
+          <h3>Comments</h3>
+          <?php
+          $sqlComments =
+              "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
+              "SELECT * FROM comments JOIN users ON comments.user_id = users.id WHERE comments.post_id = {$_GET['post_id']}";
+
+              $statement = $connection->prepare($sqlComments);
+              $statement->execute();
+
+              $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+              $comments = $statement->fetchAll();
+              foreach ($comments as $comment) {
+          ?>
+
+          <ul>
+          <li class="single-comment">
+               <div>posted by: <?php echo $comment['author'] ?></div>
+              <div> <?php echo $comment['text'] ?> </div>
+          </li>
+          <?php } ?>
+          </ul>
+      </div>
+  </div>
+      <?php include 'sidebar.php'?>
+
+  </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+<footer class="blog-footer">
+ <?php include "footer.php" ?>
+</footer>
+</body>
+</html>
+
+Message Input
