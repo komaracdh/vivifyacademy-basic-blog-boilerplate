@@ -11,3 +11,20 @@ h1,h2,h3,h4{
 h1 a,h2 a,h3 a{
     color: #b34848 !important;
 }
+
+.list-unstyled {
+    display: block;
+    color: #b34848;
+    
+}
+.input-comment{
+    color: #b34848;
+}
+.form textarea{
+    width: 100% !important;
+    height: 100px !important;
+}
+.form input{
+    display: block !important;
+    margin:20px 0px 20px 0px !important;
+}

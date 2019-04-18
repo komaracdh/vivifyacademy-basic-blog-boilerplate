@@ -42,7 +42,7 @@
   <?php
               if (isset($_GET['post_id'])) {
 
-                  $sql = "SELECT Id, Title, Body, Author, Created_at FROM posts WHERE posts.id = {$_GET['post_id']}";
+                  $sql = "SELECT id, title, body, author, created_at FROM posts WHERE posts.id = {$_GET['post_id']}";
                   $statement = $connection->prepare($sql);
 
                   $statement->execute();
@@ -56,10 +56,38 @@
 
   ?>
   <div class="blog-post">
-      <h2 class="blog-post-title"><a href="single-posts.php?post_id=<?php echo($singlePost['Id']) ?>"><?php echo($singlePost['Title']) ?></a></h2>
-      <p class="blog-post-meta"><?php echo($singlePost['Created_at']) ?> by <?php echo($singlePost['Author']) ?></p>
-      <p><?php echo($singlePost['Body']) ?></p>
-      <div class="comments">
+      <h2 class="blog-post-title"><a href="single-posts.php?post_id=<?php echo($singlePost['id']) ?>"><?php echo($singlePost['title']) ?></a></h2>
+      <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> by <?php echo($singlePost['author']) ?></p>
+      <p><?php echo($singlePost['body']) ?></p>
+<div class="form">
+<form method="POST" action="create-comment.php" class="form">
+<input type="text" placeholder="Author">
+<input type="text" placeholder="Comment" style="display:block; margin-bottom:1rem" class="input-comment">
+<input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+<input class="btn btn-default" type="submit" value="Submit">
+</form>
+</div>
+
+
+
+
+      <button onclick ="hide()"  id="button">Hide comments</button>
+   
+        <script type="text/javascript">
+        function hide() {
+    var y = document.getElementById("button");
+  var x = document.getElementById("comments");
+  if (x.style.display === "none") {
+   x.style.display = "block";
+   y.innerHTML = "Hide comments";
+  } else {
+    x.style.display = "none";
+    y.innerHTML = "Show comments";
+  }
+}
+      </script>
+      <div class="comments" id="comments">
+          
           <h3>Comments</h3>
           <?php
           $sqlComments =
@@ -77,8 +105,8 @@
 
           <ul>
           <li class="single-comment">
-               <div>posted by: <?php echo $comment['Author'] ?></div>
-              <div> <?php echo $comment['Text'] ?> </div>
+               <div>posted by: <?php echo $comment['author'] ?></div>
+              <div> <?php echo $comment['text'] ?> </div>
           </li>
           <?php } ?>
           </ul>

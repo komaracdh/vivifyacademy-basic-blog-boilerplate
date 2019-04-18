@@ -1,99 +1,65 @@
 <?php
-  $servername = "127.0.0.1";
-  $username = "root";
-  $password = "vivify";
-  $dbname = "blog";
+$servername = "127.0.0.1";
+   $username = "root";
+   $password = "root";
+   $dbname = "blog";
+   $password = "";
+   $dbname = "blog";
 
-  try {
-      $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      // set the PDO error mode to exception
-      $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  }
-  catch(PDOException $e)
-  {
-      echo $e->getMessage();
-  }
+   try {
+    $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch(PDOException $e)
+{
+    echo $e->getMessage();
+}
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
+<div class="col-sm-8 blog-main">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../../../favicon.ico">
-
-  <title>Vivify Blog</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
-  <!-- Custom styles for this template -->
-  <link href="styles/blog.css" rel="stylesheet">
-  <link href="styles/styles.css" rel="stylesheet">
-</head>
-<?php include 'header.php'?>
-<body>
-<main role="main" class="container">
-
-  <div class="row">
-  <?php
-              if (isset($_GET['post_id'])) {
-
-                  $sql = "SELECT Id, Title, Body, Author, Created_at FROM posts WHERE posts.id = {$_GET['post_id']}";
-                  $statement = $connection->prepare($sql);
-
-                  $statement->execute();
-
-                  $statement->setFetchMode(PDO::FETCH_ASSOC);
-
-                  $singlePost = $statement->fetch();
-              }
+<div class="blog-post">
 
 
 
-  ?>
-  <div class="blog-post">
-      <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo($singlePost['id']) ?>"><?php echo($singlePost['title']) ?></a></h2>
-      <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> by <?php echo($singlePost['author']) ?></p>
-      <p><?php echo($singlePost['body']) ?></p>
-      <div class="comments">
-          <h3>Comments</h3>
-          <?php
-          $sqlComments =
-              "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
-              "SELECT * FROM comments JOIN users ON comments.user_id = users.id WHERE comments.post_id = {$_GET['post_id']}";
+<?php
 
-              $statement = $connection->prepare($sqlComments);
-              $statement->execute();
+             
+                $sql = "SELECT Id, title, body, author, created_at FROM posts ORDER BY created_at DESC LIMIT 3";
+                $statement = $connection->prepare($sql);
+                $statement->execute();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $posts = $statement->fetchAll();
 
-              $statement->setFetchMode(PDO::FETCH_ASSOC);
+            
 
-              $comments = $statement->fetchAll();
-              foreach ($comments as $comment) {
-          ?>
+            ?>
 
-          <ul>
-          <li class="single-comment">
-               <div>posted by: <?php echo $comment['author'] ?></div>
-              <div> <?php echo $comment['text'] ?> </div>
-          </li>
-          <?php } ?>
-          </ul>
-      </div>
-  </div>
-      <?php include 'sidebar.php'?>
+            <?php
+                foreach ($posts as $post) {
+            ?>
 
-  </div><!-- /.row -->
+                    <article class="blog-post">
+                        <header>
+                        <h1 class="blog-post-title"><a href="single-posts.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h1>
 
-</main><!-- /.container -->
+                            
+                            <div class="blog-post-meta"><?php echo($post['created_at'])?> <?php echo($post['author']) ?></div>
+                        </header>
 
-<footer class="blog-footer">
- <?php include "footer.php" ?>
-</footer>
-</body>
-</html>
+                        <div>
+                            
+                            <p class="blog-post"><?php echo($post['body']) ?></p>
+                        </div>
+                    </article>
 
-Message Input
+            <?php
+                }
+            ?>
+<nav class="blog-pagination">
+    <a class="btn btn-outline-primary" href="#">Older</a>
+    <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+</nav> 
+</div>
+</div><!-- /.blog-main -->
