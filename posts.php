@@ -26,7 +26,7 @@ catch(PDOException $e)
 <?php
 
              
-                $sql = "SELECT Id, title, body, author, created_at FROM posts ORDER BY created_at DESC LIMIT 3";
+                $sql = "SELECT id, title, body, author, created_at FROM posts ORDER BY created_at DESC LIMIT 3";
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);

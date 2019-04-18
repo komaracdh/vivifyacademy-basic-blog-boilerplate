@@ -59,10 +59,21 @@
       <h2 class="blog-post-title"><a href="single-posts.php?post_id=<?php echo($singlePost['id']) ?>"><?php echo($singlePost['title']) ?></a></h2>
       <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> by <?php echo($singlePost['author']) ?></p>
       <p><?php echo($singlePost['body']) ?></p>
+      <?php
+               $error = '';
+               if ($_SERVER["REQUEST_METHOD"] === 'GET' && !empty($_GET['error'])) {
+                   $error = 'All fields are required!';
+               }
+           ?>
 <div class="form">
 <form method="POST" action="create-comment.php" class="form">
-<input type="text" placeholder="Author">
-<input type="text" placeholder="Comment" style="display:block; margin-bottom:1rem" class="input-comment">
+<?php if (!empty($error)) {?>
+                   <span class="alert alert-danger">
+                       <?php echo $error; ?>
+                   </span>
+               <?php } ?>
+<input type="text" name="author" placeholder="Author">
+<input type="text" name="comment" placeholder="Comment" style="display:block; margin-bottom:1rem" class="input-comment">
 <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
 <input class="btn btn-default" type="submit" value="Submit">
 </form>
@@ -89,6 +100,7 @@
       <div class="comments" id="comments">
           
           <h3>Comments</h3>
+          <ul>
           <?php
           $sqlComments =
               "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
@@ -103,11 +115,16 @@
               foreach ($comments as $comment) {
           ?>
 
-          <ul>
+         
           <li class="single-comment">
                <div>posted by: <?php echo $comment['author'] ?></div>
               <div> <?php echo $comment['text'] ?> </div>
           </li>
+          <form method="GET" action="delete-comment.php" >
+               <input class="btn btn-default" type="submit" value="Delete">
+               <input type="hidden" value="<?php echo $comment['id']; ?>" name="id"/>
+               <input type="hidden" value="<?php echo $comment['post_id']; ?>" name="post_id"/>
+           </form>
           <?php } ?>
           </ul>
       </div>
